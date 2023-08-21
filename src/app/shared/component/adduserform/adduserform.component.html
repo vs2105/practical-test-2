@@ -1,0 +1,256 @@
+<header class="header">
+    <h2>Add/Update Data</h2>
+    <div>
+        <mat-icon class="mx-2">list</mat-icon>
+        <mat-icon mat-dialog-close class="clear">clear</mat-icon>
+    </div>
+</header>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="signupform" (ngSubmit)="onsignup()">
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>GST.No</mat-label>
+                    <input matInput placeholder="Enter GST No." formControlName="GSTNo">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>PAN No.</mat-label>
+                    <input matInput placeholder="AAECN14987" formControlName="PANNo">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Code</mat-label>
+                    <input matInput placeholder="Enter Code" formControlName="Code">
+                    <mat-error *ngIf="getallformcontrol['invalid'] && getallformcontrol['touched']">
+                       code is <strong>Mandatory</strong>
+                       </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Enter Name" formControlName="CompanyName" >
+                    <mat-error *ngIf="getcompanynamecontrol.invalid && getcompanynamecontrol.touched ">
+                       Name is <strong>Mandatory</strong>
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput placeholder="Enter Address" formControlName="Address"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Pincode</mat-label>
+                    <input matInput placeholder="Enter Pincode" formControlName="pincode">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Select Country</mat-label>
+                    <mat-select matNativeControl  formControlName="country">    
+                        <mat-option  *ngFor="let country of CountryArr" [value]="country">{{country}}</mat-option>              
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Select State</mat-label>
+                    <mat-select matNativeControl  formControlName="state">
+                        <mat-option *ngFor="let state of stateArr" [value]="state" >{{state}}</mat-option>
+                        <!-- <mat-option value="option3">Option 3</mat-option> -->
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Select City</mat-label>
+                    <mat-select matNativeControl formControlName="city">
+                        <mat-option *ngFor="let city of CityArr" [value]="city">{{city}}</mat-option>    
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-4 offset-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Mobile No</mat-label>
+                    <input matInput placeholder="Enter Mobile No." formControlName="CompanymobileNo">
+                   
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label> Email</mat-label>
+                    <input matInput placeholder="Enter Email" formControlName="companyemail">
+                    <!-- <mat-error *ngIf="getallformcontrol['companyemail'] && getallformcontrol['companyemail']">
+                    Email is <strong>Mandatory</strong>
+                        </mat-error> -->
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Lattitude</mat-label>
+                    <input matInput placeholder="Enter Lattitude" formControlName="lattitude">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Longitude</mat-label>
+                    <input matInput placeholder="Enter Longitude" formControlName="longitude">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Select Currancy</mat-label>
+                    <mat-select matNativeControl  formControlName="currency">
+                        <mat-option [value]="curr" *ngFor="let curr of currancyArr">{{curr}}</mat-option>                 
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12 ">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="card p-2">
+
+                    ..::Contact Person Detail::..
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-4">
+                            <div class="col-sm-4">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Enter Person Name." formControlName="name">
+                                    <mat-error *ngIf="getallformcontrol['name'].hasError('required')">
+                                        Name is <strong>Mandatory</strong>
+                                            </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Mobile No.</mat-label>
+                                    <input matInput placeholder="Enter Mobile No" formControlName="mobile">
+                                    <mat-error *ngIf="getallformcontrol['mobile'].hasError('required')">
+                                        Mobile Number is <strong>Mandatory</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="getallformcontrol['mobile'].hasError('pattern')">
+                                                Enter valid 10 Digit <strong>Number </strong>
+                                                    </mat-error>   
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="Enter Email" formControlName="email" >
+                                    <mat-error *ngIf="getallformcontrol['email'].hasError('required')">
+                                        Email is <strong>Mandatory</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="getallformcontrol['email'].hasError('pattern')">
+                                                Enter valid <strong>Email</strong>
+                                                    </mat-error>    
+                                </mat-form-field>
+                          
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-4">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Department</mat-label>
+                                    <input matInput placeholder="Enter Department" formControlName="dept">
+                                    <mat-error *ngIf="getallformcontrol['dept'].hasError('required')">
+                                        Department is <strong>Mandatory</strong>
+                                            </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Designantion</mat-label>
+                                    <input matInput placeholder="Enter Designantion" formControlName="desgination">
+                                    <mat-error *ngIf="getallformcontrol['desgination'].hasError('required')">
+                                        Desgination  is <strong>Mandatory</strong>
+                                            </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <button mat-raised-button color="primary" class="mx-2" type="button" (click)="getPersonlDetails()" ><mat-icon>add</mat-icon>
+                                    Add</button>
+                                <button mat-raised-button color="warn"><mat-icon>close</mat-icon> Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" >
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body d-flex justify-content-center align-items-center height">
+                            <p *ngIf="detailsArray.length<=0">No Rows To Shows</p>
+                              
+                              <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" *ngIf="detailsArray.length >= 1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Name</th>
+                                                    <th>Mobile</th>
+                                                    <th>email</th>
+                                                    <th>Dept.</th>
+                                                    <th>Designation</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let p of detailsArray, index as i">
+                                                    <td>{{i + 1}}</td>
+                                                    <td>{{p.name}}</td>
+                                                    <td>{{p.mobile}}</td>
+                                                    <td>{{p.email}}</td>
+                                                    <td>{{p.dept}}</td>
+                                                    <td>{{p.desgination}}</td>
+                                                    <td><button mat-raised-button color="warn" type="button" (click)="ondeleteperson(i)">Delete</button></td>
+                                                </tr>
+                                            </tbody>
+                
+                                          </table>
+                                    </div>
+                                </div>                             
+                              </div>        
+                        </div>
+                        <div class="row" *ngIf="detailsArray.length<=0 || detailsArray.length<=1">
+                            <div class="col-12">
+                                <span> <mat-error>
+                                    Minimum 2 contact person required
+                                </mat-error></span>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12 d-flex justify-content-center align-items-center ">
+                <button mat-raised-button class="mx-2" color="primary" *ngIf="!resObj" [mat-dialog-close]="true" type="submit" [disabled]="signupform.invalid" (click)="opensnackbar('Data was added sucessfully','okay')"><mat-icon>check</mat-icon>Save</button>
+                <button mat-raised-button class="mx-2" color="accent" type="button" [mat-dialog-close]="true" *ngIf="resObj"   (click)="onUpdateData()"  (click)="opensnackbar(' Data was Updated sucessfully','okay')"><mat-icon>check</mat-icon>Update</button>
+                <button mat-raised-button color="warn" mat-dialog-close type="button"> <mat-icon>close</mat-icon>cancel</button>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
