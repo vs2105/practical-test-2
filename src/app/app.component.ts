@@ -61,7 +61,8 @@ export class AppComponent implements OnInit{
   }
 
   onEdituser(id:string){
-
+    console.log(id);
+    
     this._crudservice.getSingleUser(id)
   .subscribe(res => {
   console.log(res);

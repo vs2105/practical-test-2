@@ -12,12 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./adduserform.component.scss']
 })
 export class AdduserformComponent implements OnInit {
-
   constructor(
     private _crudService:CrudService,
     private _dialogref : MatDialogRef<AdduserformComponent>,
     @Inject(MAT_DIALOG_DATA) public resObj: Iuser
-    ) { }
+    ) {
+      
+   
+     }
 
   signupform!:FormGroup
 
@@ -34,9 +36,8 @@ export class AdduserformComponent implements OnInit {
     //   this.detailsArray=JSON.parse(localStorage.getItem('persondetails') as any)
     //   // console.log(localStorage.getItem('persondetails'));  
     // }
-
     if(this.resObj){
-      console.log(this.resObj);
+      console.log(this.resObj.id);
       this.signupform.patchValue(this.resObj)
     }
 
@@ -73,7 +74,8 @@ export class AdduserformComponent implements OnInit {
     if(this.signupform.valid){
       this._crudService.senduserdata(this.signupform.value)
       .subscribe(res => {
-        //   alert(`employee was added sucessfully`)
+          console.log
+          (`employee was added sucessfully`)
         // console.log(res);
         this.signupform.reset()
         this._dialogref.close()
@@ -126,15 +128,18 @@ export class AdduserformComponent implements OnInit {
   }
 
   onUpdateData(){
-    if(this.resObj && this.signupform.valid){
-      console.log(this.signupform.value);
-      this._crudService.updateUser(this.resObj.id, this.signupform.value)
-    .subscribe(res => {
-      console.log(res);
-      this.signupform.reset()
-      this._dialogref.close()
-    })
-    }
+      if(this.signupform.valid){
+        console.log(this.signupform.value);
+        this._crudService.updateUser(this.resObj.id, this.signupform.value)
+        .subscribe(res => {
+          console.log(res);
+          console.log('updated');
+          
+          this.signupform.reset()
+          this._dialogref.close()
+        })
+      }
+      
   }
 
 }

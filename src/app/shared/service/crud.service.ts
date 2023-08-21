@@ -21,7 +21,8 @@ export class CrudService {
 
   getalluserData():Observable<Iuser[]>{
    let url:string=`${environment.firebasedb}data.json`
-   return this._httpclient.get<Iuser[]>(url).pipe(
+   return this._httpclient.get<Iuser[]>(url)
+   .pipe(
      map((res) => {
        let arr = [];
        for (let key in res) {
@@ -55,7 +56,17 @@ export class CrudService {
   }
 
   getSingleUser(id:string):Observable<Iuser>{
-   return this._httpclient.get<Iuser>(environment.firebasedb+'data/'+id+'.json')
+   return this._httpclient.get<Iuser>(environment.firebasedb+'data/'+id+'/.json')
+   .pipe(
+    map((res) => {
+      let obj:Iuser
+      obj = {
+        ...res,
+        id: id
+      }
+      return obj
+    })
+  )
   }
 
   deleteuser(id:string){
@@ -65,7 +76,7 @@ export class CrudService {
 
   
   updateUser(id:string, obj: Iuser):Observable<Iuser>{
-   return this._httpclient.patch<Iuser>(environment.firebasedb+'data/'+id+'.json', obj)
+   return this._httpclient.patch<Iuser>(environment.firebasedb+'data/'+id+'/.json', obj)
   }
 
   openSnackBar(msg:string,action:string){
